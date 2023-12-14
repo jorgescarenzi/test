@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-aplicacion-clima
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mi-aplicacion-clima
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: mi-aplicacion-clima
+    spec:
+      containers:
+      - name: mi-aplicacion-clima
+        image: sergioscardigno82/tp-10:3ce31b42
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
